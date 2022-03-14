@@ -1,6 +1,7 @@
 import React,{ useEffect, useState } from 'react';
 import './App.css';
 import Recipe from './Recipe';
+import Text from './Text';
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('chicken');
+  const [query, setQuery] = useState('');
 
   useEffect( ()=>{
     getRecipe();
@@ -36,13 +37,20 @@ function App() {
 
   return (
     <div className="App">
+     
       <form onSubmit={getSearch} className="search-form">
-        <input type="text" className="search-bar" value={search} onChange={updateSearch} />
-        <button className='search-button' type="submit">
+        
+        <br />
+        <input type="text" className="search-bar" value={search} onChange={updateSearch} placeholder="search your today's dish" />
+        <button className='search-button' type="submit" style={{cursor: "pointer"}}>
         Search
         </button>
+        
       </form>
+
+      <Text />
       <div className='recipes'>
+        
         {recipes.map(recipe => (
           <Recipe 
           key={recipe.recipe.label}
