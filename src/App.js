@@ -19,9 +19,17 @@ function App() {
   },[query]);
 
   const getRecipe = async () =>{
-    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-    const data = await response.json();
-    setRecipes(data.hits);
+  
+      const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+      const data = await response.json();
+
+      console.log(data);
+      if(data.hits.length == 0 && data.q != ''){
+        alert("ohho! get some food");
+      }else{
+        setRecipes(data.hits);
+      }
+    
   }
 
   const updateSearch = e => {
@@ -41,7 +49,7 @@ function App() {
       <form onSubmit={getSearch} className="search-form">
         
         <br />
-        <input type="text" className="search-bar" value={search} onChange={updateSearch} placeholder="search your today's dish" />
+        <input type="text" className="search-bar" value={search} onChange={updateSearch} placeholder="search your food recipe" />
         <button className='search-button' type="submit" style={{cursor: "pointer"}}>
         Search
         </button>
